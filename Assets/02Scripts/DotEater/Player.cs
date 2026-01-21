@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
@@ -10,12 +11,13 @@ public class Player : MonoBehaviour
     GameObject[] dots;
     CharacterController controller;
     Animator animator;
+    public Text scoreText;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         controller = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
-        
+        scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
     }
 
     // Update is called once per frame
@@ -33,8 +35,9 @@ public class Player : MonoBehaviour
 
         if(GameObject.FindGameObjectsWithTag("Dot").Length == 0)
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene("Clear");
         }
+        scoreText.text = "남은 코인 수: " + GameObject.FindGameObjectsWithTag("Dot").Length;
     }
 
     private void OnTriggerEnter(Collider other)

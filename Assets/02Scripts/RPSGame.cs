@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RPSGame : MonoBehaviour
 {
@@ -26,6 +27,9 @@ public class RPSGame : MonoBehaviour
 
     public GameObject gameStartPanel;
     public GameObject rpsPanel;
+    public Text win;
+    public Text lose;
+    public Text draw;
 
     Animator enemyAnimator;   // 적 애니메이터
 
@@ -35,6 +39,9 @@ public class RPSGame : MonoBehaviour
         enemyAnimator = GetComponent<Animator>();
         gameStartPanel.SetActive(true);
         rpsPanel.SetActive(false);
+        win.enabled = false;
+        lose.enabled = false;
+        draw.enabled = false;
     }
 
     // Update is called once per frame
@@ -141,6 +148,7 @@ public class RPSGame : MonoBehaviour
             if (enemyAnimator != null)
                 enemyAnimator.SetBool("Draw", true);
             Debug.Log("무승부!");
+            draw.enabled = true;
         }
         else if ((myHand == ROCK && enemyHand == SCISSORS) ||
                  (myHand == PAPER && enemyHand == ROCK) ||
@@ -150,6 +158,7 @@ public class RPSGame : MonoBehaviour
             if (enemyAnimator != null)
                 enemyAnimator.SetBool("Lose", true);
             Debug.Log("승리!");
+            win.enabled = true;
         }
         else
         {
@@ -157,6 +166,7 @@ public class RPSGame : MonoBehaviour
             if (enemyAnimator != null)
                 enemyAnimator.SetBool("Win", true);
             Debug.Log("패배!");
+            lose.enabled = true;
         }
 
         modeRPS = 3; // 결과 표시 모드로 전환
@@ -211,6 +221,9 @@ public class RPSGame : MonoBehaviour
         result = 0;
         waitTime = 0f;
         modeRPS = 0; // 초기 상태로 돌아감
+        win.enabled = false;
+        lose.enabled = false;
+        draw.enabled = false;
     }
 
     // 적 애니메이션 재생
